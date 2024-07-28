@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - YT2PDF
+name: Build and deploy Python app to Azure Web App - yt2pdf
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python version
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -36,7 +36,7 @@ jobs:
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
@@ -54,7 +54,7 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: python-app
 
@@ -63,16 +63,16 @@ jobs:
 
       
       - name: Login to Azure
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4383A5AA7DB345AA9BF2FD5AF72C37B4 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_16495F6042264BAB8714535EF4DD9CE4 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7246D8E6543B4ACCAD9496F9B6A22345 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_989428FCB0CC4A9EACEE5521F9779C63 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AA7801F35DDD4587BEC7DD5187CA3250 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F85FFF3E41D44DD89BB2F3E157B43019 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'YT2PDF'
+          app-name: 'yt2pdf'
           slot-name: 'Production'
           
